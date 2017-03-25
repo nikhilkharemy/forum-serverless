@@ -1,0 +1,252 @@
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img [src]="user_profile_pic" alt="user.name"/>
+                    <div>
+                      <button type="button" class="file btn btn-lg btn-primary" (click) = "imgUpdClicked = !imgUpdClicked">Change Photo</button>
+                        <!-- <input type="file" name="file"/> -->
+                        <input type="submit" class="password-update-btn" name="btnUpdatePassword" (click) = "passUpdClicked = !passUpdClicked" value="Update Password"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        {{user.name}}
+                    </h5>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                      </li> -->
+                  </ul>
+                </div>
+                <div class="tab-content profile-tab" id="myTabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.name!='' ? user.name : '-'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user_email}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.contact!='' ? user.contact : '-'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Address</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.address !='' ? user.address : '-'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>City</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.city.id!='0' ? user.city.name : '-'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>State</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.state.id!='0' ? user.state.name : '-'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Address</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.country.id!='0' ? user.country.name : '-'}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Language Interest</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.languages.length > 0 ? (user.languages | arrayToCommaString) : '-'}}</p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" (click) = "profileUpdClicked = !profileUpdClicked" value="Edit Profile"/>
+            </div>
+        </div>
+    </form>           
+</div>
+<div id="imageUpdate" class="modal" [ngClass]="{'opened': imgUpdClicked, 'closed': !imgUpdClicked }">
+  <div class="modal-content">
+    <span class="close" (click) = "imgUpdClicked = !imgUpdClicked">&times;</span>
+    <form (ngSubmit)="updateImage()">
+      <div class="form-group">      
+        <input type="file" id="file" name="file1" class="form-control" #contact="ngModel" [(ngModel)]="user.profile_pic" (change)="getFiles($event)">
+      </div>
+      <div class="form-group">      
+        <div class="d-flex">
+            <button type="submit" class="btn btn-primary ml-auto">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div id="passwordUpdate" class="modal" [ngClass]="{'opened': passUpdClicked, 'closed': !passUpdClicked }">
+    <div class="modal-content">
+      <span class="close" (click) = "passUpdClicked = !passUpdClicked">&times;</span>
+      <form (ngSubmit)="updatePassword(frm); frm.reset()" #frm="ngForm">
+        <div class="form-group">
+            <label for="oldPwd">Current Password</label>
+            <input type="password" name="oldPwd" id="oldPwd" placeholder="Current Password" [(ngModel)] = "oldPwd" class="form-control" #currPass="ngModel" required>
+            <p *ngIf="(currPass.errors?.required && currPass.touched)" class="error">
+                * Current Password can't be blank!
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="newPwd">New Password</label>
+            <input type="password" name="newPwd" id="newPwd" placeholder="Current Password" [(ngModel)] = "newPwd" class="form-control" #newPass="ngModel" required>
+            <p *ngIf="(newPass.errors?.required && newPass.touched)" class="error">
+                * New Password can't be blank!
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="newPwd2">Confirm Password</label>
+            <input type="password" name="newPwd2" id="newPwd2" placeholder="Current Password" [(ngModel)] = "newPwd2" class="form-control" #new2pass="ngModel" required>
+            <p *ngIf="(new2pass.errors?.required && new2pass.touched)" class="error">
+                * Confirm Password can't be blank!
+            </p>
+          </div>
+          <p *ngIf="err1" class="error">
+            * New password and Confirm password does not match !
+            </p>
+            <p *ngIf="err2" class="error">
+                * Password length should be minimum 6 !
+                </p>
+            <p *ngIf="success" class="success">
+                Password has been Updated !
+            </p>
+        <div class="form-group">      
+          <div class="d-flex">
+              <button type="submit" class="btn btn-primary ml-auto">Update</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<div id="profileUpdate" class="modal" [ngClass]="{'opened': profileUpdClicked, 'closed': !profileUpdClicked }">
+  <div class="modal-content">
+    <span class="close" (click) = "profileUpdClicked = !profileUpdClicked">&times;</span>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="form-group">
+        <label for="email">Name</label>
+        <input type="text" name="title" id="title" placeholder="Name" [(ngModel)] = "user.name" class="form-control" #name="ngModel" required>
+        <p *ngIf="(name.errors?.required && name.touched)" class="error">
+            * Name can't be blank!
+        </p>
+      </div>
+      <div class="form-group">
+          <label for="category">Gender</label>
+          <select class="form-control" name="gender" id="gender" placeholder="Choose Gender" [(ngModel)] = "user.gender" #gender="ngModel" required>
+              <option value="0">Choose Gender</option>
+              <option *ngFor="let gender of genders" [value]="gender.id">
+              {{gender.value}}
+              </option>
+          </select>
+        <p *ngIf="(gender.errors?.required && gender.touched)" class="error">
+          * Please Choose your Gender.
+        </p>
+    </div>
+      <div class="form-group">
+          <label for="category">Country</label>
+          <select class="form-control" name="country" id="country" placeholder="Choose country" [(ngModel)] = "user.country.id" #country="ngModel" (change) = "getStates()" required>
+              <option value="0">Choose Country</option>
+              <option *ngFor="let country of countries" [value]="country.id">
+              {{country.name}}
+              </option>
+          </select>
+        <p *ngIf="(country.errors?.required && country.touched)" class="error">
+          * Please Choose your Country.
+        </p>
+    </div>
+    <div class="form-group">
+          <label for="category">State</label>
+          <select class="form-control" name="state" id="state" placeholder="Choose State" [(ngModel)] = "user.state.id" #state="ngModel" (change) = "getCities()" required>
+              <option value="0">Choose State</option>
+              <option *ngFor="let state of states" [value]="state.id">
+              {{state.name}}
+              </option>
+          </select>
+        <p *ngIf="(state.errors?.required && state.touched)" class="error">
+          * Please Choose your state.
+        </p>
+    </div>
+
+    <div class="form-group">
+          <label for="category">City</label>
+          <select class="form-control" name="city" id="city" placeholder="Choose City" [(ngModel)] = "user.city.id" #city="ngModel" required>
+              <option value="0">Choose city</option>
+              <option *ngFor="let city of cities" [value]="city.id">
+              {{city.name}}
+              </option>
+          </select>
+        <p *ngIf="(city.errors?.required && city.touched)" class="error">
+          * Please Choose your City.
+        </p>
+    </div>
+    <div class="form-group ">
+        <label for="address">Address</label>
+        <textarea name="address" id="address" placeholder="Address" [(ngModel)] = "user.address"  class="form-control" required>
+        </textarea>
+      </div>
+      <div class="form-group">
+        <label for="phone">Contact Number</label>
+        <input type="text" name="contact" id="contact" placeholder="Contact Number" [(ngModel)] = "user.contact" class="form-control" #contact="ngModel"  required>
+        <p *ngIf="(contact.errors?.required && contact.touched)" class="error">
+            * Contact Number can't be blank!
+        </p>
+      </div>
+      <div class="form-group">
+        <ng-multiselect-dropdown
+              [placeholder]="'Choose Language'"
+              [data]="languages"
+              [(ngModel)]="user.languages"
+              name="userLanguage"
+              [settings]="dropdownSettings"
+              (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)"
+          >
+         </ng-multiselect-dropdown>
+       </div>
+      <!-- <input type="file" id="file" name="file1" class="form-control" #contact="ngModel" [(ngModel)]="user.profile_pic" (change)="getFiles($event)">
+    -->
+    
+    <!--p><a (click)="addlanguagediv()">Add details</a></p-->
+    <div class="d-flex">
+        <button type="submit" class="btn btn-primary ml-auto">Update</button>
+    </div>
+  </form>
+</div>

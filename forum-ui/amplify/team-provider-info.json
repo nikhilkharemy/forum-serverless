@@ -1,0 +1,21 @@
+{
+    "production": {
+        "awscloudformation": {
+            "AuthRoleName": "abp-manch-ui-production-20190603104240-authRole",
+            "UnauthRoleArn": "arn:aws:iam::848426169251:role/abp-manch-ui-production-20190603104240-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::848426169251:role/abp-manch-ui-production-20190603104240-authRole",
+            "Region": "ap-south-1",
+            "DeploymentBucketName": "abp-manch-ui-production-20190603104240-deployment",
+            "UnauthRoleName": "abp-manch-ui-production-20190603104240-unauthRole",
+            "StackName": "abp-manch-ui-production-20190603104240",
+            "StackId": "arn:aws:cloudformation:ap-south-1:848426169251:stack/abp-manch-ui-production-20190603104240/36eea240-85be-11e9-8582-0aa04a3dbfd0"
+        },
+        "categories": {
+            "auth": {
+                "abpmanchui5db387ca": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"621969064957227\",\"client_secret\":\"9d1f378c0eaa2eb4989aeb244721f93d\"}]"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "short_name": "ABP APP",
+  "name": "NATIVE ABP APP",
+  "icons": [
+    {
+      "src": "/images/logo192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/logo512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.winit.starnews.hin"
+    }
+  ],
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#cc0001"
+}

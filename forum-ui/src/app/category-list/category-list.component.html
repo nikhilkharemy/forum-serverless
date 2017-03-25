@@ -1,0 +1,94 @@
+<div class="container">
+	<div class="row py-3">
+		<!-- <div class="col-8">
+			<div class="input-group">
+				<input type="text" class="form-control" aria-label="Text input with dropdown button">
+					<select class="form-control" name="" id="">
+						<option value="">1</option>
+						<option value="">2</option>
+						<option value="">3</option>
+					</select>
+					<select class="form-control" name="" id="">
+						<option value="">1</option>
+						<option value="">2</option>
+						<option value="">3</option>
+					</select>
+			</div>
+		</div> -->
+		<div class="col-12 col-md-4 offset-md-8 d-flex">
+			<button class="btn btn-sm btn-primary ml-auto" style="margin: 5px" (click)="addEditCat([], 'add')">Add Category</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Slug</th>
+					<th scope="col">Name</th>
+					<th scope="col">Desc</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let category of categories | paginate: { itemsPerPage: 10, currentPage: p }">
+					<td>#{{ category.termId }}</td>
+					<td>{{ category.catSlug }}</td>
+					<td>{{ category['term_details.termDetailName'] }}</td>
+					<td>{{ category['term_details.termDetailDesc'] }}</td>
+					<td><button class="btn btn-sm btn-primary" style="margin: 5px" (click)="addEditCat(category, 'edit')">Edit</button> <!-- <button class="btn btn-sm btn-primary" style="margin: 5px">Edit</button>   <button class="btn btn-sm btn-primary" style="margin: 5px">Edit</button> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<pagination-controls (pageChange)="p = $event" class="text-center"></pagination-controls>
+
+		</div>
+	</div>
+	<div id="catEditAdd" class="modal" [ngClass]="{'opened': editBtnClicked, 'closed': !editBtnClicked }" *ngIf="editBtnClicked">
+		<div class="modal-content">
+			<span class="close" (click)="editBtnClicked = !editBtnClicked">&times;</span>
+			<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+				<div class="form-group">
+					<label for="title">Title</label>
+					<input type="text" name="name" id="name" placeholder="Title" [(ngModel)]="catData.name" class="form-control" #catName="ngModel" required="">
+					<p *ngIf="(catName.errors?.required && catName.touched)" class="error">
+						*Title can't be blank!
+					</p>
+				</div>
+				<div class="form-group">
+					<label for="category">Channel</label>
+					<select class="form-control" name="channel" id="channel" placeholder="Choose channel" [(ngModel)]="catData.langId" #channel="ngModel" required [disabled]="catData.id > 0">
+						<!-- <option value="0">Choose Channel</option> -->
+						<option *ngFor="let channel of channels" [value]="channel.id">
+							{{channel.name}}
+						</option>
+					</select>
+					<p *ngIf="(channel.errors?.required && channel.touched)" class="error">
+						* Please Choose a Channel.
+					</p>
+				</div>
+				<div class="form-group">
+					<label for="title">Slug</label>
+					<input type="text" name="slug" id="slug" placeholder="Slug" [(ngModel)]="catData.slug" class="form-control" #catSlug="ngModel" required="">
+					<p *ngIf="(catSlug.errors?.required && catSlug.touched)" class="error">
+						*Slug can't be blank!
+					</p>
+				</div>
+				<div class="form-group ">
+					<label for="cat_desc">Description</label>
+					<textarea name="cat_desc" id="cat_desc" class="form-control" [(ngModel)]="catData.desc" class="form-control" #catDesc="ngModel" required>
+									</textarea>
+					<p *ngIf="(catDesc.errors?.required && catDesc.touched)" class="error">
+						*Desc can't be blank!
+					</p>
+					<!-- <angular-editor name="lang_desc"  placeholder="Description" [(ngModel)] = "topic.description" [config]="config"></angular-editor> -->
+				</div>
+				<div class="d-flex">
+					<button type="submit" class="btn btn-primary ml-auto" [disabled]="(catName.errors?.required || catSlug.errors?.required || catDesc.errors?.required || channel.errors?.required)">{{catData.id > 0 ? 'Update' : 'Create'}}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

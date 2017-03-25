@@ -1,0 +1,53 @@
+<div class="card feed" *ngIf="!isLoaded">
+  <div class="card-header">
+    <div class="card-info">
+      <div class="img-o"></div>
+      <div class="author-o"></div>
+    </div>
+    <ul class="list-unstyled card-more">
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <a href="javascript:void(0)" class="row">
+      <div class="col">
+        <h5 class="card-title"></h5>
+        <div class="card-text">
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </div>
+      <div class="col feed-img-o">
+      </div>
+    </a>
+    <div class="row">
+      <div class="col feed-actions mt-2">
+        <a href="#" class="comments"></a>
+        <a href="#" class="share"></a>
+        <span class="feed-tags">
+          <a href="javascript:void(0)" class="tag"></a>
+          <a href="javascript:void(0)" class="tag"></a>
+          <a href="javascript:void(0)" class="tag"></a>
+          <a href="javascript:void(0)" class="tag"></a>
+          <a href="javascript:void(0)" class="tag"></a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer"></div>
+</div>
+<div *ngIf="isLoaded && isLoadedFeeds">
+  <div *ngFor="let feed of feeds" >
+    <app-feed class="card feed" [feed]="feed" isCommentable = "0"> 
+    </app-feed>
+  </div>
+  <div *ngIf="!feeds.length" >
+    <div class="card-header">
+      <div class="card-info">
+        No Results Found
+      </div>
+    </div>
+  </div>
+</div> 

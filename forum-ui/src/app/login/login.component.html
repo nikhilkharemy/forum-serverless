@@ -1,0 +1,45 @@
+<div class="content-o">
+    <div class="container">
+        <div class="row">
+            <div class="col-11 col-lg-6 mx-auto my-3 my-md-5 card card-body">
+                <div class="text-center">
+                    <h2 class="h2">Sign in</h2>
+                    <!-- <span><a routerLink="/register">Don't have an account?</a></span> -->
+                    <!-- <br>
+                    <br>
+                    <span><img id="fbImg" src="https://image.flaticon.com/icons/svg/179/179319.svg" (click) = facebookLogin() /></span>
+                    <span><img id="googleImg" src="https://image.flaticon.com/icons/svg/281/281764.svg" (click) = googleLogin() /></span> -->
+                </div>
+                <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                    <div class="form-group">
+                        <label for="email">Email ID</label>
+                        <input type="email" [pattern]="mailformat" name="email" id="email" placeholder="Email" ngModel class="form-control" #emailId="ngModel" required>
+                    </div>
+                    <p *ngIf="(emailId.errors?.required && emailId.touched)" class="error">
+                        * Email can't be blank!
+                    </p>
+                    <p class="error" *ngIf="emailId.errors?.pattern && emailId.touched" class="error">
+                        * Please enter a valid email id!
+                    </p>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Password" ngModel class="form-control" #password="ngModel" required>
+                    </div>
+                    <p *ngIf="(password.errors?.required && password.touched)" class="error">
+                        * Password can't be blank!
+                    </p>
+                    <div class="d-flex">
+                        <span><a routerLink="/forgot-password">Forgot Password?</a></span>
+                        <button type="submit" class="btn btn-primary ml-auto" [disabled]="(emailId.errors?.required || password.errors?.required)">Login</button>
+                    </div>
+                </form>
+                <div class="text-center mt-3 alert alert-danger" *ngIf="emailVerificationMessage">
+                    {{errorMsg}}
+                </div>
+                <div class="preLoaderOverlay" *ngIf="loading">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-md navbar-light sticky-top bg-white shadow-sm">
+  <a class="navbar-brand" href="#"><img src="https://cdn.abplive.in/abp-munch.png" alt="" class="img-fluid"></a>
+  <p id="manchTitle">ABP-Manch </p>
+  <button (click)=toggleNav() class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" [ngClass]="{ 'show': openNav }" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <!-- <li routerLinkActive="active" class="" [routerLinkActiveOptions]="{exact: true}" *ngIf="isLoggedIn"><a routerLink="/">Home</a></li> -->
+      <!-- <li routerLinkActive="active"><a *ngIf="isLoggedIn" routerLink="/restapi">Topics</a></li>
+      <li routerLinkActive="active"><a *ngIf="!isLoggedIn" routerLink="/register">Register</a></li> -->
+      <li routerLinkActive="active"><a *ngIf="!isLoggedIn" routerLink="/login">Login</a></li>
+      <li class="dropdown" *ngIf="isLoggedIn">
+        <a class="dropdown-toggle" href="javascript:void(0)" appdropdown>
+          <span class="usr-img"><img class="img-fluid" [src]="image" alt="Aakar Patel" data-was-processed="true"></span>
+          <span class="usr-info">
+            <span class="ui-nm">{{name}}</span>
+            <!-- <span class="ui-eml">{{email}}</span> -->
+          </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right profileDdn">
+          <a class="dropdown-item" href="/profile/edit">Profile</a>
+          <a class="dropdown-item" href="javascript:void(0)" (click)="doLogout()">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

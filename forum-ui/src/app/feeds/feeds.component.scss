@@ -1,0 +1,160 @@
+.feed {
+  margin-top: 20px;
+  box-shadow: 1px 5px 20px rgba(0, 0, 0, 0.06);
+  border: none;
+
+  &:last-child {
+    margin-bottom: 20px;
+  }
+}
+.card-header {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 50px;
+  border-bottom: 0;
+  .card-info {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    .img-o{
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #ccc;
+    }
+    .author-o{
+      width: 150px;
+      height: 18px;
+      background-color: #eee;
+      margin-left: 10px;
+    }
+  }
+}
+
+.card-more {
+  margin: 0;
+  display: flex;
+
+  li {
+    height: 40px;
+    min-width: 40px;
+    border-radius: 20px;
+    background-color: #eee;
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+}
+
+.card-body {
+  padding-top: 10px;
+
+  .card-title {
+    width: 70%;
+    height: 26px;
+    background-color: #ddd;
+    background-image: linear-gradient(to right, #eeeeee 20px, #cccccc 50px, #eeeeee 80px);
+    background-size: 200% 100%;
+    -webkit-animation: loader 3s linear infinite;
+    -moz-animation: loader 3s linear infinite;
+    animation: loader 3s linear infinite;
+  }
+  
+  .card-text {
+    p{
+      width: 100%;
+      height: 20px;
+      margin-bottom: 5px;
+      background-color: #eee;
+      background-image: linear-gradient(to right, #eeeeee 20px, #cccccc 50px, #eeeeee 80px);
+      background-size: 200% 100%;
+      -webkit-animation: loader 3s linear infinite;
+      -moz-animation: loader 3s linear infinite;
+      animation: loader 3s linear infinite;
+      &:last-child{
+        width: 50%;
+      }
+    }
+  }
+
+  .feed-img-o {
+    padding: 0;
+    margin: 0 15px;
+    flex-grow: 0;
+    flex: 0 0 160px;
+    height: 120px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #ccc;
+    background-image: linear-gradient(to right, #eeeeee 20px, #cccccc 50px, #eeeeee 80px);
+    background-size: 200% 100%;
+    -webkit-animation: loader 3s linear infinite;
+    -moz-animation: loader 3s linear infinite;
+    animation: loader 3s linear infinite;
+  }
+
+  .feed-actions {
+    display: inline-flex;
+    align-items: flex-start;
+    margin-bottom: -5px;
+
+    a {
+      width: 24px;
+      height: 24px;
+      background-color: #ccc;
+      border-radius: 20px;
+
+      &:not(:first-child) {
+        margin-left: 5px;
+      }
+    }
+
+    .feed-tags {
+      display: inline-flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-left: 10px;
+    }
+
+    .tag {
+      width: 80px;
+    }
+  }
+}
+
+.card-footer {
+  background: #fafafa;
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0
+  }
+
+  100% {
+    background-position: 468px 0
+  }
+}
+
+@-webkit-keyframes loader {
+    0%{background-position:200% 50%}
+    100%{background-position:0% 50%}
+    // 100%{background-position:0% 50%}
+}
+@-moz-keyframes loader {
+    0%{background-position:200% 50%}
+    100%{background-position:0% 50%}
+    // 100%{background-position:0% 50%}
+}
+@keyframes loader { 
+    0%{background-position:200% 50%}
+    100%{background-position:0% 50%}
+    // 100%{background-position:0% 50%}
+}

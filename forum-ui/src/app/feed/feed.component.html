@@ -1,0 +1,52 @@
+<div class="card-header">
+  <div class="card-info">
+    <div class="img-o">
+      <img src="{{feed.user.dispPic!=''? feed.user.dispPic : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}}"
+        alt="" class="img-fluid">
+    </div>
+    <div class="author-o">
+      <!-- <span class="auth-nm"><a href="#"> {{feed._source.post_author}} </a></span> -->
+      <span class="pub-time"><strong>By: {{feed.user.dispName}}</strong></span>
+      <span class="pub-time">{{ feed.createDate | date:'medium' }}</span>
+    </div>
+  </div>
+  <ul class="list-unstyled card-more">
+    <!-- <li><a href="javascript:void(0)"><i class="fa-heart" [ngClass]=" 1 ? 'fas':'far' " ></i></a><span class="badge d-none d-sm-block">{{feed.id}}</span></li> -->
+    <!-- <li class="dropdown">
+      <a class="dropdown-toggle" href="javascript:void(0)"><i class="fa fa-ellipsis-v"></i></a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="#">Menu 1</a>
+        <a class="dropdown-item" href="#">Menu 2</a>
+        <a class="dropdown-item" href="#">Menu 3</a>
+      </div>
+    </li> -->
+  </ul>
+</div>
+<div class="card-body">
+  <a href="/topic/{{feed.tSlug+'-'+feed.tId}}" class="row">
+    <div class="col">
+      <h5 class="card-title">{{feed.tTitle | removeBackSlash}}</h5>
+      <div class="card-text" [innerHTML]="feed.tDescription | removeBackSlash">
+      </div>
+    </div>
+    <div class="col feed-img-o">
+      <img src="{{feed.tImage}}" alt="" class="">
+    </div>
+  </a>
+  <div class="row">
+    <div class="col feed-actions mt-2">
+      <a href="#" class="comments">
+      <i class="far fa-comment"></i> {{feed.tViews}} Views
+      </a>
+      <a class="share {{ (isFollowed)? 'followed':'aads'}}" (click) = "(isFollowed) ? followTopic(feed.id, 0): followTopic(feed.id, 1)">
+        <i class="fas fa-rss"></i> {{ (isFollowed)? 'Unfollow':'Follow'}}
+      </a>
+      <span class="feed-tags">
+        <i class="fas fa-tag"></i>
+        {{feed.term_detail ? feed.term_detail.termDetailName : 'Uncategorized'}}
+        <!-- <a *ngFor="let tag_name of feed._source.post_tag_name; let i = index" href="https://www.abplive.in/topic/{{feed._source.post_tag[i]}}" class="tag">{{tag_name}}</a> -->
+      </span>
+    </div>
+  </div>
+</div>
+<app-comments class="card-footer" [comments] = "comments" [topId] = "topId" *ngIf="isCommentable == 1"></app-comments>

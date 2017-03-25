@@ -1,0 +1,12 @@
+<div>
+  <span><i class="fa fa-ellipsis-v" (click)="showdiv=!showdiv" title="Report"></i></span>
+  <div class="report-block" *ngIf="showdiv">
+    <strong>Reason to report?</strong>
+    <div><input type="radio" (click)="isOtherClicked = 0" name="reportreason"  [(ngModel)] = "reportreason" value="obscene"/> Obscene</div>
+    <div><input type="radio" (click)="isOtherClicked = 0" name="reportreason"  [(ngModel)] = "reportreason" value="privacy"/> Privacy</div>
+    <div><input type="radio" (click)="isOtherClicked = 0" name="reportreason"  [(ngModel)] = "reportreason" value="offensive"/> Offensive</div>
+    <div><input type="radio" (click)="isOtherClicked = 1"  name="reportreason" [(ngModel)] = "reportreason" value="other" /> Other</div>
+    <div class="mb-2" *ngIf = "isOtherClicked == 1"><input class="form-control" type="text" placeholder="Specify here.." [(ngModel)] = "reportreasontext" name="reportreason_text"/></div>
+    <div><input [disabled] = "!reportreason || (isOtherClicked && !reportreasontext)" type="button" value="Report" (click)="reportComment(comId)" class=" form-control btn btn-primary" name="reportbtn"/></div>
+  </div>
+</div> 

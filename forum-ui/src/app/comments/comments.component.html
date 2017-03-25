@@ -1,0 +1,40 @@
+<div class="row row-sm">
+  <div class="comments col-md-12" id="comments">
+    <h3 class="h5 mb-2">Comments</h3>
+    <div class="comment row" *ngFor="let comment of comments">
+      <div class="comment-avatar col text-center">
+        <a href=""><img class="mx-auto rounded-circle img-fluid" [src]="comment.dispPic != '' ? comment.dispPic : defaultImage" alt="avatar"></a>
+      </div>
+      <div class="comment-content col row">
+        <h6 class="small comment-meta"><a href="#">{{comment.dispName}}</a> {{comment.created_date | date:'medium'}}</h6>
+        <div class="comment-body col-md-11">
+          <p [innerHTML] = "comment.commentText">
+          </p>
+          <a href="javascript:void(0)" (click)="_getReplies(comment.cId)" class="comment-reply-btn small"><i class="fas fa-reply"></i> Replies ({{comment.replyCount}})</a>
+        </div>
+        <div class="col-md-1 reportdots">
+          <app-report [comId] = "comment.cId"></app-report>
+        </div>
+      </div>
+      <div class="_replies" *ngIf="comment.replies">
+        <div class="comment row" *ngFor="let replies of comment.replies">
+          <div class="comment-avatar col text-center">
+            <a href=""><img class="mx-auto rounded-circle img-fluid" [src]="replies.dispPic != '' ? replies.dispPic : defaultImage" alt="avatar" alt="avatar"></a>
+          </div>
+          <div class="comment-content col">
+            <h6 class="small comment-meta"><a href="#">{{replies.dispName}}</a> {{replies.createDate | date:'medium'}}</h6>
+            <div class="comment-body">
+              <p [innerHTML]="replies.comment_text">
+                <br>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="comment row">
+          <app-add-reply [comId] = "comment.cId" [topId] = "topId" class="comment-content col"></app-add-reply>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-add-comment></app-add-comment>

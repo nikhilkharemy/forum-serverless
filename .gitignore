@@ -1,0 +1,4 @@
+abp-manch-ui/node_modules/
+server/node_modules/
+server/.env
+server/config/config.json

@@ -1,0 +1,13 @@
+{
+  "serverless": {
+    "provider": "aws",
+    "skipInstall": false,
+    "directory": ".",
+    "project": "abp-manch-ui",
+    "clientProject": "abp-manch-ui",
+    "serverless": {
+      "aws": {},
+      "gcloud": {}
+    }
+  }
+}

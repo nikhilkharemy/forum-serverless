@@ -1,0 +1,52 @@
+<div class="container">
+  <table class="table table-striped table-hover mt-3 bg-white" style="table-layout: fixed;">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col" style="width: 80%;">Comment Details</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comment of comments">
+        <td>
+          <p><strong>Topic: </strong><a target="_blank" href="/topic/{{ comment.article.topic_slug }}-{{ comment.article.id }}">{{ comment.article.eng_title | removeBackSlash }}</a></p>
+          <p style="word-break: break-word;"><strong>Text: </strong>{{ comment.commentText | decodeEmojis }}</p>
+          <p><strong>By: </strong>{{ comment.user.dispName }}</p>
+          <p><strong>Date: </strong>{{ comment.createDate | date:'medium'}}</p>
+        </td>
+        <td>
+          <a href="javascript:void();" (click)="activity(2,comment.cId, comment.article.id)">Reject</a><br>
+          <a href="javascript:void();" (click)="activity(0,comment.cId, comment.article.id)">Approve</a><br>
+          <a href="javascript:void();" (click)="showReportList(comment.cId)">View Report List</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="reportListModal" class="modal" [ngClass]="{'opened': showReportedList, 'closed': !showReportedList }">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" (click) = "showReportedList = !showReportedList">&times;</span>
+    </div>
+    <div class="modal-body">
+      <table class="table table-striped table-hover mt-3 bg-white">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Report Type/Reason</th>
+            <th scope="col">Reported By</th>
+            <th scope="col">Reported Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of reports">
+            <td>{{report.report_reason}}</td>
+            <td>{{report.user.dispName}}</td>
+            <td>{{report.created_date | date:'medium'}}</td>
+          </tr>
+        </tbody>
+      </table>
+        
+    </div>
+  </div>
+</div>

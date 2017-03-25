@@ -1,0 +1,266 @@
+<!-- <p>You can do filter table data, in this case with observables and our <code>NgbHighlight</code> component used in Typeahead</p> -->
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12 mt-3 mb-3">
+			<form class="p-2 bg-white pb-3">
+				<div class="row">
+					<div class="col-4">
+						<select class="form-control mb-3" name="channel" id="channel" placeholder="Choose channel"
+							(change)="fetchCategories(channel.value);isFilter = true; isReset = true" [(ngModel)]="searchChannel"
+							#channel="ngModel" required *ngIf="userRole == 1">
+							<option value="">All Channel</option>
+							<option *ngFor="let channel of channels" [value]="channel.id">
+								{{channel.name}}
+							</option>
+						</select>
+					</div>
+					<div class="col-4">
+						<ng-multiselect-dropdown class="d-block mb-3" [placeholder]="'All Users'" [data]="anchors" [(ngModel)]="filterAnchor"
+							name="filterAnchor" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+							class="col-12 col-md" (onDeSelect)="onItemSelect($event)" *ngIf="userRole == 1">
+						</ng-multiselect-dropdown>
+					</div>
+					<div class="col-4">
+						<ejs-daterangepicker class=" mb-3" id='daterangepicker' name="filterDate" placeholder='Select Date range'
+							[startDate]='' [endDate]='' [(ngModel)]="filterDate" (change)="isFilter = true; isReset = true"></ejs-daterangepicker>
+					</div>
+					<div class="col-4">
+						<select class="form-control mb-3" name="category" id="category" placeholder="Choose category"
+							[(ngModel)]="searchCategory" (change)="isFilter = true; isReset = true" #category="ngModel" required>
+							<option value="">All category</option>
+							<option *ngFor="let category of categories" [value]="category.termId">
+								{{category['term_details.termDetailName']}}
+							</option>
+						</select>
+					</div>
+					<div class="col-4">
+						<select class="form-control mb-3" name="sortOn" id="sortOn" placeholder="Choose Sorting"
+							[(ngModel)]="sortingCriteria" (change)="isFilter = true; isReset = true" #sort="ngModel" required>
+								<!-- <option value="">Created Date(desc)</option> -->
+								<option *ngFor="let sort of sortOn" [value]="sort.id">
+									{{sort.name}}
+								</option>
+						</select>
+					</div>
+					<div class="col">
+						<button type="submit" class="btn btn-primary px-5 ml-auto ml-md-0 mr-3"
+							(click)="filterData()" [disabled]="!isFilter">Filter</button>
+						<button type="reset" class="btn btn-primary px-5 ml-auto ml-md-0"
+							(click)="resetData()" [disabled]="!isReset">Reset</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-12 mt-3 mb-3">
+			<div class="table-responsive bg-white">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">S. No</th>
+							<th scope="col">Topics<!--  ({{ totalTopics}}) --></th>
+							<!-- <th scope="col">Desc</th> -->
+							<th scope="col">Comments <!-- ({{ totalComments}}) --></th>
+							<!-- <th scope="col">Reported Comments ({{ totalReportedComments}})</th> -->
+							<th scope="col">Likes<!--  ({{ totalLikes}}) --></th>
+							<!-- <th scope="col">Views ({{ totalViews}})</th> -->
+							<th scope="col">Category</th>
+							<th scope="col">Channel</th>
+							<th scope="col">Source</th>
+							<th scope="col">Created Date</th>
+							<th scope="col">Created By</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let feed of filteredFeeds">
+							<td>#{{feed.tId}}</td>
+							<td>
+								<a href="{{ feed | createTopicUrl}}" target="_blank" class="row">{{feed.tTitle | removeBackSlash}}</a>
+							</td>
+							<!-- <td [innerHTML]="feed.tDescription | createEllipsis  | removeBackSlash"></td> -->
+							<td>{{ feed.comntCount}}</td>
+							<!-- <td>{{ feed.reportedCommentCount}}</td> -->
+							<td>{{ feed.likeCount}}</td>
+							<!-- <td>{{ feed.tViews}}</td> -->
+							<td>{{ feed.categoryId | getCategoryName: feed.langId: filterdCategories }}</td>
+							<td>{{ feed.langId | getChannelName}}</td>
+							<td> {{ source[feed.source]}}
+							<td>{{ feed.createDate | date:'medium'}}</td>
+							<td>{{ feed.user.dispName }}</td>
+							<td><button class="btn btn-sm btn-primary" style="margin: 5px"
+									(click)="editModal(feed)">Edit</button>
+								<!--  <button class="btn btn-sm btn-primary" style="margin: 5px">Edit</button>   <button class="btn btn-sm btn-primary" style="margin: 5px">Edit</button> -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div *ngIf="totalTopicsPagination.length > 0">
+					<div *ngFor="let tCount of totalTopicsPagination | paginate: { itemsPerPage: 10, currentPage: p }">
+					</div>
+					<pagination-controls (pageChange)="loadArticles($event)" class="text-center"></pagination-controls>
+				</div>
+				<!-- <pagination-controls (pageChange)="loadArticles($event)" class="text-center"></pagination-controls> -->
+				<!-- <pagination-controls (pageChange)="test($event)" class="text-center"></pagination-controls> -->
+			</div>
+			<div id="imageUpdate" class="modal" [ngClass]="{'opened': editBtnClicked, 'closed': !editBtnClicked }"
+				*ngIf="editBtnClicked">
+				<div class="modal-content">
+					<span class="close" (click)="editBtnClicked = !editBtnClicked">&times;</span>
+					<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+						<!-- <div class="form-group">
+							<label for="category">Channel</label>
+							<select class="form-control" name="channel" id="channel" placeholder="Choose channel"
+								[(ngModel)]="topic.channel" #channel="ngModel" required disabled="disabled">
+								<option value="">Choose Channel</option>
+								<option *ngFor="let channel of channels" [value]="channel.name">
+									{{channel.name}}
+								</option>
+							</select>
+							<p *ngIf="(channel.errors?.required && channel.touched)" class="error">
+								* Please Choose a Channel.
+							</p>
+						</div> -->
+						<!-- <div class="row">
+			    <div class="col-12 col-md-7">
+			        <div class="form-group">
+			            <label for="email">Article Id</label>
+			            <input type="text" name="articleId" id="articleId" placeholder="Article Id" [(ngModel)] = "topic.articleId" class="form-control" #article_id="ngModel" required>
+			            <p *ngIf="(article_id.errors?.required && article_id.touched)" class="error">
+			                *Article Id can't be blank!
+			            </p>
+			        </div>
+			    </div>
+			    <div class="col-12 col-md-5">
+			        <div class="form-group">
+			            <label class="d-none d-md-block">&nbsp;</label>
+			            <button class="btn btn-primary ml-auto form-control" type="button" (click)="fetchStory()">Fetch Story Metadata</button>
+			        </div>
+			    </div>
+			</div> -->
+						<div class="form-group">
+							<label for="email">Article Id</label>
+							<input type="text" name="articleId" id="articleId" placeholder="Article Id"
+								[(ngModel)]="topic.articleId" class="form-control" #article_id="ngModel"
+								disabled="disabled">
+							<p *ngIf="(article_id.errors?.required && article_id.touched)" class="error">
+								*Article Id can't be blank!
+							</p>
+						</div>
+						<div class="form-group" *ngIf="userRole == 1">
+							<label for="category">Assign User</label>
+							<select class="form-control" name="anchor" id="anchor" placeholder="Choose anchor"
+								[(ngModel)]="topic.userId" #anchor="ngModel" required>
+								<option value="0">No Anchor</option>
+								<option *ngFor="let anchor of anchors" [value]="anchor.userId">
+									{{anchor.dispName}}
+								</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="email">Title</label>
+							<input type="text" name="title" id="title" placeholder="Topic Title"
+								[(ngModel)]="topic.title" class="form-control" #title="ngModel" required>
+							<p *ngIf="(title.errors?.required && title.touched)" class="error">
+								* Title can't be blank!
+							</p>
+						</div>
+						<div class="form-group">
+							<label for="email">Eng Title</label>
+							<input type="text" name="eng_title" id="eng_title" placeholder="Topic Title"
+								[(ngModel)]="topic.eng_title" class="form-control" #engTitle="ngModel"
+								 required>
+							<p *ngIf="(engTitle.errors?.required && engTitle.touched)" class="error">
+								* English Title can't be blank!
+							</p>
+						</div>
+						<!-- <div class="form-group">
+							<label for="email">Slug</label>
+							<input type="text" name="slug" id="slug" placeholder=" Slug" [(ngModel)]="topic.slug"
+								class="form-control" #slug="ngModel" required disabled="disabled">
+							<p *ngIf="(slug.errors?.required && slug.touched)" class="error">
+								* Slug can't be blank!
+							</p>
+						</div> -->
+						<div class="form-group">
+							<label for="category">Category</label>
+							<select class="form-control" name="category" id="category" placeholder="Choose category"
+								[(ngModel)]="topic.cat_id" #category="ngModel" required>
+								<option value="0">Choose category</option>
+								<option *ngFor="let category of categories" [value]="category.termId">
+									{{category['term_details.termDetailName']}}
+								</option>
+							</select>
+							<p *ngIf="(category.errors?.required && category.touched)" class="error">
+								* Please Choose a Category.
+							</p>
+						</div>
+						<div class="form-group">
+							<label for="tags">Tags</label>
+							<angular2-multiselect [data]="alltags" name="tags" (onAddFilterNewItem)="addNewItem($event)"
+								[(ngModel)]="topic.tags" [settings]="tagsDropdownSettings"
+								(onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+								(onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+								class="form-control" #tags="ngModel" required>
+							</angular2-multiselect>
+							<p *ngIf="(tags.errors?.required && tags.touched)" class="error">
+								* Tags can't be blank!
+							</p>
+						</div>
+						<div class="form-group ">
+							<label for="lang_desc">Description</label>
+							<!--  <textarea name="lang_desc" id="lang_desc" class="form-control" required>
+			        </textarea> -->
+							<angular-editor name="lang_desc" placeholder="Description" [(ngModel)]="topic.description"
+								#description="ngModel" [config]="config"></angular-editor>
+						</div>
+						<div *ngIf="userRole == 1">
+							<div class="form-group">
+								<label for="email">Meta Title</label>
+								<input type="text" name="mtitle" id="mtitle" placeholder="Meta Title"
+									[(ngModel)]="topic.seo.title" class="form-control" #seo_title="ngModel" required>
+								<!-- <p *ngIf="(seo_title.errors?.required && seo_title.touched)" class="error">
+									* Meta Title can't be blank!
+								</p> -->
+							</div>
+							<div class="form-group">
+								<label for="email">Meta Description</label>
+								<input type="text" name="mdesc" id="mdesc" placeholder="Meta Description"
+									[(ngModel)]="topic.seo.description" class="form-control" #seo_description="ngModel"
+									required>
+								<!-- <p *ngIf="(seo_description.errors?.required && seo_description.touched)" class="error">
+									* Meta description can't be blank!
+								</p> -->
+							</div>
+							<div class="form-group">
+								<label for="email">Meta Keywords</label>
+								<input type="text" name="mkeywords" id="mkeywords" placeholder="Meta Keywords"
+									[(ngModel)]="topic.seo.keywords" class="form-control" #seo_keywords="ngModel" required>
+								<!-- <p *ngIf="(seo_keywords.errors?.required && seo_keywords.touched)" class="error">
+									* Meta keywords can't be blank!
+								</p> -->
+							</div>
+							<div class="form-group">
+								<label for="email">Regional Keywords</label>
+								<input type="text" name="mRkeywords" id="mRkeywords" placeholder="Regional Keywords"
+									[(ngModel)]="topic.seo.regional_keywords" class="form-control"
+									#seo_regional_keywords="ngModel" required>
+								<!-- <p *ngIf="(seo_regional_keywords.errors?.required && seo_regional_keywords.touched)"
+									class="error">
+									* Regional keywords can't be blank!
+								</p> -->
+							</div>
+						</div>
+						<div class="d-flex">
+							<button type="submit" class="btn btn-primary ml-auto"
+								[disabled]="(title.errors?.required || engTitle.errors?.required || category.errors?.required || description.errors?.required)">Update</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="preLoaderOverlay" *ngIf="loading">
+            <div class="loader"></div>
+      	</div>
+	</div>
+</div>

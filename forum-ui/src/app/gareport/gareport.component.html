@@ -1,0 +1,70 @@
+<!-- <p>You can do filter table data, in this case with observables and our <code>NgbHighlight</code> component used in Typeahead</p> -->
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12 mt-3 mb-3">
+			<form class="p-2 bg-white pb-3">
+				<div class="row">
+					<div class="col-4">
+						<select class="form-control mb-3" name="channel" id="channel" placeholder="Choose channel"
+							(change)="fetchCategories(channel.value);isFilter = true; isReset = true" [(ngModel)]="searchChannel"
+							#channel="ngModel" required *ngIf="userRole == 1">
+							<option value="">All Channel</option>
+							<option *ngFor="let channel of channels" [value]="channel.id">
+								{{channel.name}}
+							</option>
+						</select>
+					</div>
+					<div class="col-4">
+						<ng-multiselect-dropdown class="d-block mb-3" [placeholder]="'All Users'" [data]="anchors" [(ngModel)]="filterAnchor"
+							name="filterAnchor" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+							class="col-12 col-md" (onDeSelect)="onItemSelect($event)" *ngIf="userRole == 1">
+						</ng-multiselect-dropdown>
+					</div>
+					<div class="col-4">
+						<ejs-daterangepicker class=" mb-3" id='daterangepicker' name="filterDate" placeholder='Select Date range'
+							[startDate]='' [endDate]='' [(ngModel)]="filterDate" (change)="isFilter = true; isReset = true"></ejs-daterangepicker>
+					</div>
+					<div class="col-4">
+						<select class="form-control mb-3" name="category" id="category" placeholder="Choose category"
+							[(ngModel)]="searchCategory" (change)="isFilter = true; isReset = true" #category="ngModel" required>
+							<option value="">All category</option>
+							<option *ngFor="let category of categories" [value]="category.termId">
+								{{category['term_details.termDetailName']}}
+							</option>
+						</select>
+					</div>
+					<div class="col">
+						<button type="submit" class="btn btn-primary px-5 ml-auto ml-md-0 mr-3"
+							(click)="filterData()" [disabled]="!isFilter">Filter</button>
+						<button type="reset" class="btn btn-primary px-5 ml-auto ml-md-0"
+							(click)="resetData()" [disabled]="!isReset">Reset</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-12 mt-3 mb-3">
+			<div class="table bg-white">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Total Topics<!--  ({{ totalTopics}}) --></th>
+              <th scope="col">Total Comments <!-- ({{ totalComments}}) --></th>
+							<th scope="col">Total Likes <!-- ({{ totalComments}}) --></th>              
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{ totalTopics}}</td>
+              <td>{{ totalComments}}</td>
+							<td>{{ totalLikes}}</td>              
+						</tr>
+					</tbody>
+				</table>
+				<!-- <pagination-controls (pageChange)="loadArticles($event)" class="text-center"></pagination-controls> -->
+				<!-- <pagination-controls (pageChange)="test($event)" class="text-center"></pagination-controls> -->
+			</div>
+		</div>
+	</div>
+</div>

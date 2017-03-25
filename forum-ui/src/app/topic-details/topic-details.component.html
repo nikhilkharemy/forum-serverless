@@ -1,0 +1,52 @@
+<div class="content-o">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 feeds">
+                <div class="card feed" *ngIf="!isLoaded">
+                    <div class="card-header">
+                        <div class="card-info">
+                            <div class="img-o"></div>
+                            <div class="author-o"></div>
+                        </div>
+                        <ul class="list-unstyled card-more">
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <a href="javascript:void(0)" class="row">
+                            <div class="col">
+                                <h5 class="card-title"></h5>
+                                <div class="card-text">
+                                    <p></p>
+                                    <p></p>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="col feed-img-o"></div>
+                        </a>
+                        <div class="row">
+                            <div class="col feed-actions mt-2">
+                                <a href="#" class="comments"></a>
+                                <a href="#" class="share"></a>
+                                <span class="feed-tags">
+                                <a href="javascript:void(0)" class="tag"></a>
+                                <a href="javascript:void(0)" class="tag"></a>
+                                <a href="javascript:void(0)" class="tag"></a>
+                                <a href="javascript:void(0)" class="tag"></a>
+                                <a href="javascript:void(0)" class="tag"></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+                <div  *ngIf="isLoaded">
+                    <app-feed class="card feed" [feed]=feed [comments] = "comments" [topId] = "topicId" isCommentable = "1"></app-feed>
+                    <!-- <app-comments ></app-comments> -->
+                </div>
+            </div>
+            <app-right-sidebar class="col sidebar"></app-right-sidebar>
+        </div>
+    </div>
+</div>

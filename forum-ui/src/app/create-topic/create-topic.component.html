@@ -1,0 +1,153 @@
+<div class="content-o">
+  <div class="container">
+      <div class="row">
+          <div class="col-11 col-lg-7 mx-auto my-3 my-md-5 ">
+              <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                 <div class="d-flex">
+                    <button type="submit" class="btn btn-primary ml-auto" [disabled]="(channel.errors?.required || title.errors?.required || engTitle.errors?.required || slug.errors?.required || category.errors?.required || description.errors?.required)">Create</button>
+                </div>
+                <div class="form-group">
+                    <label for="category">Select Channel</label>
+                    <select class="form-control" name="channel" id="channel" placeholder="Choose channel" [(ngModel)] = "topic.channel" #channel="ngModel" (change) = "fetchCategories()" required>
+                        <option value="">Choose Channel</option>
+                        <option *ngFor="let channel of channels" [value]="channel.name">
+                          {{channel.name}}
+                        </option>
+                    </select>
+                    <p *ngIf="(channel.errors?.required && channel.touched)" class="error">
+                      * Please Choose a Channel.
+                  </p>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-7">
+                    <div class="form-group">
+                      <label for="email">Article Id / Article URL</label>
+                      <input type="text" name="articleId" id="articleId" placeholder="Article Id" [(ngModel)] = "articleId" class="form-control" #article_id="ngModel" required [disabled]="topic.channel == ''">
+                      <!-- <p *ngIf="(article_id.errors?.required && article_id.touched)" class="error">
+                          *Article Id can't be blank!
+                      </p> -->
+                      <p *ngIf="(articleErr!='')" class="error">
+                          {{articleErr}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-5">
+                    <div class="form-group">
+                      <label class="d-none d-md-block">&nbsp;</label>
+                      <button class="btn btn-primary ml-auto w-100" type="button" (click)="fetchStory()" [disabled]="topic.channel == ''">Fetch Story Metadata</button>
+                    </div>
+                  </div>
+                </div>
+            <div class="form-group" *ngIf="userRole == 1">
+                <label for="category">Assign User</label>
+                <select class="form-control" name="anchor" id="anchor" placeholder="Choose anchor" [(ngModel)] = "topic.userId" #anchor="ngModel" required [disabled]="topic.channel == ''">
+                    <option value="0" selected="selected">No Anchor</option>
+                    <option *ngFor="let anchor of anchors" [value]="anchor.userId">
+                      {{anchor.dispName}}
+                    </option>
+                </select>
+            </div>
+          <div class="form-group">
+            <label for="email">Title</label>
+            <input type="text" name="title" id="title" placeholder="Topic Title" [(ngModel)]="topic.title"
+              class="form-control" #title="ngModel" required [disabled]="topic.channel == ''">
+            <p *ngIf="(title.errors?.required && title.touched)" class="error">
+              * Title can't be blank!
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="email">Eng Title</label>
+            <input type="text" name="eng_title" id="eng_title" placeholder="Topic Title" [(ngModel)]="topic.eng_title"
+              class="form-control" #engTitle="ngModel" (keyup)="createTopicSlug()" required [disabled]="topic.channel == ''">
+            <p *ngIf="(engTitle.errors?.required && engTitle.touched)" class="error">
+              * English Title can't be blank!
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Slug</label>
+            <input type="text" name="slug" id="slug" placeholder=" Slug" [(ngModel)]="topic.slug" class="form-control"
+              #slug="ngModel" required disabled="disabled">
+            <p *ngIf="(slug.errors?.required && slug.touched)" class="error">
+              * Slug can't be blank!
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" name="category" id="category" placeholder="Choose category"
+              [(ngModel)]="topic.cat_id" #category="ngModel" required [disabled]="topic.channel == ''">
+              <option value="">Choose category</option>
+              <option *ngFor="let category of categories" [value]="category.termId">
+                {{category['term_details.termDetailName']}}
+              </option>
+            </select>
+            <p *ngIf="(category.errors?.required && category.touched)" class="error">
+              * Please Choose a Category.
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="tags">Tags</label>
+            <angular2-multiselect [data]="alltags" name="tags"
+              (onAddFilterNewItem)="addNewItem($event, topic.tags.length)" [(ngModel)]="topic.tags"
+              [settings]="tagsDropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+              (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)" class="form-control"
+              #tags="ngModel" required [disabled]="topic.channel == ''">
+            </angular2-multiselect>
+            <p *ngIf="(tags.errors?.required && tags.touched)" class="error">
+              * Tags can't be blank!
+            </p>
+          </div>
+          <div class="form-group ">
+            <label for="lang_desc">Description</label>
+            <!--  <textarea name="lang_desc" id="lang_desc" class="form-control" required [disabled]="topic.channel == ''">
+                    </textarea> -->
+            <angular-editor name="lang_desc" placeholder="Description" id="description" [(ngModel)]="topic.description"
+              [config]="config" #description="ngModel"></angular-editor>
+            <p *ngIf="(description.errors?.required && description.touched)" class="error">
+              * Description can't be blank!
+            </p>
+
+          </div>
+          <div *ngIf="userRole == 1">
+            <div class="form-group">
+              <label for="email">Meta Title</label>
+              <input type="text" name="mtitle" id="mtitle" placeholder="Meta Title" [(ngModel)] = "topic.seo.title" class="form-control" #seo_title="ngModel" required [disabled]="topic.channel == ''">
+              <!-- <p *ngIf="(seo_title.errors?.required && seo_title.touched && topic.userId == '0')" class="error">
+                  * Meta Title can't be blank!
+              </p> -->
+            </div>
+            <div class="form-group">
+              <label for="email">Meta Description</label>
+              <input type="text" name="mdesc" id="mdesc" placeholder="Meta Description" [(ngModel)] = "topic.seo.description" class="form-control" #seo_description="ngModel" required [disabled]="topic.channel == ''">
+              <!-- <p *ngIf="(seo_description.errors?.required && seo_description.touched && topic.userId == '0')" class="error">
+                  * Meta description can't be blank!
+              </p> -->
+            </div>
+
+            <div class="form-group">
+              <label for="email">Meta Keywords</label>
+              <input type="text" name="mkeywords" id="mkeywords" placeholder="Meta Keywords" [(ngModel)] = "topic.seo.keywords" class="form-control" #seo_keywords="ngModel" required [disabled]="topic.channel == ''">
+              <!-- <p *ngIf="(seo_keywords.errors?.required && seo_keywords.touched && topic.userId == '0')" class="error">
+                  * Meta keywords can't be blank!
+              </p> -->
+            </div>
+
+            <div class="form-group">
+              <label for="email">Regional Keywords</label>
+              <input type="text" name="mRkeywords" id="mRkeywords" placeholder="Regional Keywords" [(ngModel)] = "topic.seo.regional_keywords" class="form-control" #seo_regional_keywords="ngModel" required [disabled]="topic.channel == ''">
+              <!-- <p *ngIf="(seo_regional_keywords.errors?.required && seo_regional_keywords.touched && topic.userId == '0')" class="error">
+                  * Regional keywords can't be blank!
+              </p> -->
+            </div>
+
+            
+          </div>
+          <div class="d-flex">
+              <button type="submit" class="btn btn-primary ml-auto" [disabled]="(channel.errors?.required || title.errors?.required || engTitle.errors?.required || slug.errors?.required || category.errors?.required || description.errors?.required)">Create</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

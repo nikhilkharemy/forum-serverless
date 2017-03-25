@@ -1,0 +1,32 @@
+.feeds{
+  @media screen and (min-width: 768px){
+    max-width: calc(100% - 300px);
+  }
+}
+.sidebar {
+  flex-grow: 0;
+  flex: 0 0 300px;
+}
+.card{
+  a{
+    color: initial;
+  }
+  &:hover{
+    box-shadow: 1px 2px 6px rgba($color: #000000, $alpha: 0.16);
+    a{
+      // color: #cc0001;
+      font-weight: 600;
+    }
+  }
+  a{
+    text-decoration: none;
+  }
+}
+.container{
+  height: 100%;
+  &>.row{
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+}

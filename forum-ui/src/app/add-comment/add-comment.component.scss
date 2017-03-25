@@ -1,0 +1,21 @@
+.add-comment-o{
+  .comment-input{
+    textarea{
+      resize: none;
+      border-radius: 15px;
+      font-size: 14px;
+      line-height: 1.4;
+      overflow: hidden;
+    }
+  }
+  .comment-btn{
+    flex-grow: 0;
+    flex: 0 0 100px;
+    padding-left: 0;
+    display: inline-flex;
+    align-items: center;
+    .btn{
+      border-radius: 25px;
+    }
+  }
+}

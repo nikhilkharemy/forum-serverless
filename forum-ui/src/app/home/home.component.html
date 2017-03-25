@@ -1,0 +1,90 @@
+<div class="content-o">
+  <div class="container">
+    <div class="row pt-2 text-center">
+      <div class="col-6 mt-auto" [ngClass]="{'mb-3': userRole == 1, 'mb-auto': userRole == 2}">
+        <div class="card">
+          <!-- <div class="card-body"> -->
+            <a class="card-body d-block" href="/create-topic">
+              <div class="p-2"><img src="../../assets/660540.svg" alt="" class="img-fluid" style="max-width: 60px;"></div>
+              <span>Create Topic</span>
+            </a>
+          <!-- </div> -->
+        </div>
+      </div>
+      <div class="col-6 mt-auto" [ngClass]="{'mb-3': userRole == 1, 'mb-auto': userRole == 2}">
+        <div class="card">
+          <!-- <div class="card-body"> -->
+            <a class="card-body d-block" href="/topiclist">
+              <div class="p-2"><img src="../../assets/660718.svg" alt="" class="img-fluid" style="max-width: 60px;"></div>
+              <span>Topic List (Manch Analytics)</span>
+            </a>
+          <!-- </div> -->
+        </div>
+      </div>
+      <div class="col-6 mt-3 mb-auto" *ngIf = "userRole == 1">
+        <div class="card">
+          <!-- <div class="card-body"> -->
+            <a class="card-body d-block" href="/reportlist">
+              <div class="p-2"><img src="../../assets/660423.svg" alt="" class="img-fluid" style="max-width: 60px;"></div>
+              <span>Report List</span>
+            </a>
+          <!-- </div> -->
+        </div>
+      </div>
+      <div class="col-6 mt-3 mb-auto" *ngIf="userRole == 1">
+        <div class="card">
+          <!-- <div class="card-body"> -->
+            <a class="card-body d-block" href="/ga">
+              <div class="p-2"><img src="../../assets/660726.svg" alt="" class="img-fluid" style="max-width: 60px;"></div>
+              <span>Analytics</span>
+            </a>
+          <!-- </div> -->
+        </div>
+      </div>
+     <!--   <div class="col-6 mt-3 mb-auto" *ngIf="userRole == 1">
+        <div class="card">
+            <a class="card-body d-block" href="/categorylist">
+              <div class="p-2"><img src="../../assets/660726.svg" alt="" class="img-fluid" style="max-width: 60px;"></div>
+              <span>Category List</span>
+            </a>
+        </div>
+      </div> -->
+      <!-- <app-feeds class="col feeds">
+        <style>
+          .card{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 0.25rem;
+          }
+          .card-header {
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0;
+            color: inherit;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+          }
+          .card-body {
+            flex: 1 1 auto;
+            padding: 1.25rem;
+          }
+          .card-footer {
+            padding: 0.75rem 1.25rem;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-top: 1px solid rgba(0, 0, 0, 0.125);
+          }
+        </style>
+        <div class="card">
+          <div class="card-body">a</div>
+          <div class="card-footer">a</div>
+        </div>
+      </app-feeds>
+      <app-right-sidebar class="col sidebar"></app-right-sidebar> -->
+    </div>
+  </div>
+</div>

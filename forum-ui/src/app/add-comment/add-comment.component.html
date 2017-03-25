@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-12">
+    <form class="add-comment-o row">
+      <div class="col comment-input">
+        <textarea class="form-control" name="new_comment" [(ngModel)] = "new_comment" rows="2" placeholder="Add comment..."></textarea>
+      </div>
+      <div class="col comment-btn">
+        <button class="btn btn-primary" (click) = "_addComment()">Comment</button>
+      </div>
+    </form>
+  </div>
+</div>

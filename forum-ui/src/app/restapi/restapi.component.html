@@ -1,0 +1,37 @@
+<section>
+  <h2>Published Articles</h2>
+  <table id="articles">
+    <thead>
+      <tr>        
+        <th>ID</th>
+        <th>Author</th>
+        <th>Body</th>
+        <th>Description</th>
+        <th>Favorited</th>
+        <th>Slug</th>
+        <th>Tags</th>
+        <th>Title</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let article of _data">        
+        <td>{{article.id}}</td>
+        <td>{{article.author.username}}</td>
+        <td>{{article.body}}</td>
+        <td>{{article.description}}</td>
+        <td>{{article.favorited}}</td>
+        <td>{{article.slug}}</td>
+        <td>{{article.tagList[0]}}</td>  
+        <td>{{article.title}}</td>
+        <td>{{article.createdAt}}</td>
+        <td>{{article.updatedAt}}</td>  
+        <td>{{article.comments}}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+

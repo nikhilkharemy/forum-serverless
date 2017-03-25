@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"abpmanchui5db387ca": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
