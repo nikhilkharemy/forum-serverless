@@ -7,7 +7,7 @@ AWS.config.update({
 });
 var dynamodb = new AWS.DynamoDB();
 var params = {
-    TableName : "manch",
+    TableName : "forum",
     KeySchema: [
         { AttributeName: "id", KeyType: "HASH"},  //Partition key
 ],

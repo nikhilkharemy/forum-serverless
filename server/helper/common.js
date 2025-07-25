@@ -11,7 +11,7 @@ const crypto = require('crypto'),
 const key = Buffer.from('5ebe2294ecd0e0f08eab7690d2a6ee69', 'hex');
 const iv  = Buffer.from('26ae5cc854e36b6bdfca366848dea6bb', 'hex');
 require('dotenv').config();
-const apiUrl = process.env.API_URL || 'https://api.abpmanch.com/';
+const apiUrl = process.env.API_URL || 'https://api.forum.com/';
 const purgeUrl = process.env.PURGE_URL || 'https://wahcricket.com/general_cms/api/clear_akamai_cache.php';
 
 //code to initialise firebase
@@ -97,7 +97,7 @@ helper.getLangId = (langName) => {
 				case "gujarati":
 				return 4;
 				break;
-				case "abpganga":
+				case "nikganga":
 				return 6;
 				break;
 				default:
@@ -127,7 +127,7 @@ helper.getLangName = (langId) => {
 				return "gujarati";
 				break;
 				case 6:
-				return "abpganga";
+				return "nikganga";
 				break;
 				default:
 				return "hindi";
@@ -187,7 +187,7 @@ helper.initializeFirebase = () => {
 	var firebaseConfig = {
 	apiKey: "AIzaSyDnXYnSvaz3HajWwJTkvas5CW0u5PEkkO4",
 	// authDomain: "nice-argon-95105.firebaseapp.com",
-    authDomain: "auth.abpmanch.com",	
+    authDomain: "auth.forum.com",	
     databaseURL: "https://nice-argon-95105.firebaseio.com",
     projectId: "nice-argon-95105",
     storageBucket: "nice-argon-95105.appspot.com",

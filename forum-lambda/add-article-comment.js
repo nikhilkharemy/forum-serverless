@@ -9,7 +9,7 @@ AWS.config.update({
 
 var docClient = new AWS.DynamoDB.DocumentClient()
 
-var table = "manch";
+var table = "forum";
 
 var _id = 4;
 

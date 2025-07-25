@@ -99,7 +99,7 @@ term.post('/find/:slug', function(req, res) {
 
 term.post('/migrateToRedis', (req, res) => {
     Models.term.findAll().then(data => {
-        client.set('manchCategoriesData', JSON.stringify(data));
+        client.set('forumCategoriesData', JSON.stringify(data));
         res.send('migrated')
     })
 })

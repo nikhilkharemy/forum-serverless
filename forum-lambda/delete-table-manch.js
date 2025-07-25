@@ -9,7 +9,7 @@ AWS.config.update({
 var dynamodb = new AWS.DynamoDB();
 
 var params = {
-    TableName : "manch"
+    TableName : "forum"
 };
 
 dynamodb.deleteTable(params, function(err, data) {

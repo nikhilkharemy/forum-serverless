@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
     host     : 'stag-wahcricket.cqnwvxrxwjzo.ap-south-1.rds.amazonaws.com',
     user     : 'stag-wahcricket',
     password : 'stag-wahcricket123',
-    database : 'abpmanch'
+    database : 'forum'
   });
 
 

@@ -13,8 +13,8 @@ import "firebase/auth";
 import { reject } from 'q';
 const firebaseConfig = {
   apiKey: 'AIzaSyDnXYnSvaz3HajWwJTkvas5CW0u5PEkkO4',
-  authDomain: 'auth.abpmanch.com',
-  databaseURL: 'https://auth.abpmanch.com',
+  authDomain: 'auth.forum.com',
+  databaseURL: 'https://auth.forum.com',
   projectId: 'nice-argon-95105',
   storageBucket: 'nice-argon-95105.appspot.com',
   messagingSenderId: '624288627215',
@@ -44,31 +44,31 @@ export class AuthorizationService {
   cognitoUser: any;
   errorMsg: string;
   users = {
-    'abhijeetv@abpnews.in': {
+    'abhijeetv@niknews.in': {
       'name': 'Abhijeet Verma',
       'image': 'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-1/c34.14.160.160a/p200x200/20915072_10210459740951432_3764189843635930208_n.jpg?_nc_cat=102&_nc_ht=scontent-sin6-2.xx&oh=90fe8e5b1a17af79d0bd9ed5a921d61a&oe=5CB48ECC'
     },
-    'ramakrishnanl@abpnews.in': {
+    'ramakrishnanl@niknews.in': {
       'name': 'Ramakrishnan Laxman',
       'image': 'http://www.wan-ifra.org/sites/default/files/imagecache/default_col_2/field_event_spkr_image/Ramakrishnan%20Laxman.jpg'
     },
-    'vinodt@abpnews.in': {
+    'vinodt@niknews.in': {
       'name': 'Vinod Tiwari',
       'image': 'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/40002113_10210911428735626_854558381480869888_n.jpg?_nc_cat=109&_nc_ht=scontent-sin6-2.xx&oh=367979930c9637d399433518ffc65523&oe=5CBC68D5'
     },
-    'nikhilk@abpnews.in': {
+    'nikhilk@niknews.in': {
       'name': 'Nikhil Khare',
       'image': 'https://media.licdn.com/dms/image/C4D03AQF8YI_nOomZsA/profile-displayphoto-shrink_800_800/0?e=1554336000&v=beta&t=rGwUqWNLqkxA2_J4iPf5r21AsqXVs-1ZzO8XH0cqvA0'
     },
-    'sunils@abpnews.in': {
+    'sunils@niknews.in': {
       'name': 'Sunil Sharma',
       'image': 'https://media.licdn.com/dms/image/C4D03AQHROK1-eE4DVw/profile-displayphoto-shrink_800_800/0?e=1554336000&v=beta&t=cuR1s-4MfrvZfzYjEiweXOjAMCkHMbeTW31onhPpqL0'
     },
-    'mayurs@abpnews.in': {
+    'mayurs@niknews.in': {
       'name': 'Mayur Tomar',
       'image': 'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-1/p160x160/27857934_1971572576205484_4326744731072289130_n.jpg?_nc_cat=107&_nc_ht=scontent-sin6-2.xx&oh=f47db9ff5be3a7a3d6eeb631a585501e&oe=5CC1A245'
     },
-    'rajendrab@abpnews.in': {
+    'rajendrab@niknews.in': {
       'name': 'Rajendra Bist',
       'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_xPNOBFm_LVmWkQ7ixFrprC7f0xRcVvMrV4YNYydDTlhlYCTV'
     }

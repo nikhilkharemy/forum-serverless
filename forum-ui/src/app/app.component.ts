@@ -92,10 +92,10 @@ export class CreateTopicUrlPipe implements PipeTransform {
   		// console.log(value)
   		let url = '';
   		if(Number(value.langId) == 3 || Number(value.langId) == 6){
-  			return ('https://www.abpmanch.com/topic/' + value.tSlug + '-' + value.tId + '.html').replace('--', '-');
+  			return ('https://www.forum.com/topic/' + value.tSlug + '-' + value.tId + '.html').replace('--', '-');
   		}	
   		else{
-  			return ('https://www.abpmanch.com/'+this.apiService.getLang(value.langId)+'/' + 'topic/' + value.tSlug + '-' + value.tId + '.html').replace('--', '-');
+  			return ('https://www.forum.com/'+this.apiService.getLang(value.langId)+'/' + 'topic/' + value.tSlug + '-' + value.tId + '.html').replace('--', '-');
   		}
   		// return value.this.apiService.getLang(value.langId))
 	}

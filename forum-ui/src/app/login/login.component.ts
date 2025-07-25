@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         const email = form.value.email;
         const password = form.value.password;
-        if(email.split('@')[1] !== 'abpnews.in'){
+        if(email.split('@')[1] !== 'niknews.in'){
             this.loading = false;
             this.errorMsg = 'You are not authorized to perform this action';
             this.emailVerificationMessage = true;

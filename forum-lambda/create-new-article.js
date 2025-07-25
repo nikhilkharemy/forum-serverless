@@ -9,7 +9,7 @@ AWS.config.update({
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-var table = "manch";
+var table = "forum";
 
 var params = {
     TableName:table,
@@ -18,7 +18,7 @@ var params = {
     	"author": {
     		"bio": null,
     		"following": false,
-    		"image": "http://dashboard.abplive.in/assets/images/EngLogo64x99.png",
+    		"image": "http://dashboard.niklive.in/assets/images/EngLogo64x99.png",
     		"username": "vinodt"
     	},
     	"body": "Accidental Prime Minister",

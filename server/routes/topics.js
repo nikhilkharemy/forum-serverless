@@ -6,14 +6,14 @@ var helper = require("../helper/common");
 var request = require('request');
 const config = require(__dirname + '/../config/config.json');
 require('dotenv').config();
-const apiUrl = process.env.API_URL || 'https://api.abpmanch.com/';
+const apiUrl = process.env.API_URL || 'https://api.forum.com/';
 const Op = Models.Sequelize.Op;
-const web_url = process.env.WEB_URL || 'https://www.abpmanch.com/';
-const es_index = process.env.ES_INDEX || 'manchprod';
+const web_url = process.env.WEB_URL || 'https://www.forum.com/';
+const es_index = process.env.ES_INDEX || 'forumprod';
 const es_type = process.env.ES_TYPE || 'topic';
-const es_url = process.env.ES_URL || 'http://192.168.45.201/abpdashboard/backend/web/elasticindexcron/elastic-index-cron_bckp.php';
+const es_url = process.env.ES_URL || 'http://192.168.45.201/nikdashboard/backend/web/elasticindexcron/elastic-index-cron_bckp.php';
 const es_key = es_index + '/' + es_type;
-const es_search_url = process.env.ES_SEARCH_URL || 'https://search-abpnews-elastic-6qf2of3b6nge4pxk6bzbssuuty.ap-south-1.es.amazonaws.com';
+const es_search_url = process.env.ES_SEARCH_URL || 'https://search-niknews-elastic-6qf2of3b6nge4pxk6bzbssuuty.ap-south-1.es.amazonaws.com';
 var request = require('request');
 var querystring = require('querystring');
 const { Client } = require('@elastic/elasticsearch')
@@ -94,7 +94,7 @@ topic.post('/create', function (req, res) {
 });
 
 /**
- * This function is used to create article on manch. This api is used for admin dashboard when any admin or anchor creates a new article. This is not used when an article is migrated from ABP Live or any other language
+ * This function is used to create article on forum. This api is used for admin dashboard when any admin or anchor creates a new article. This is not used when an article is migrated from nik Live or any other language
  *
  * @param {string[]} topic_data - All the article information is in this array
  * @param {number} cat_id - Category Id
@@ -286,7 +286,7 @@ topic.post('/fetchWPStory', (req, res) => {
 		else {
 			let articleId = req.body.wp_id;
 			let articleLang = (req.body.channel).toLowerCase();
-			fetchABPtopic(articleId, articleLang, function (returnValue) {
+			fetchniktopic(articleId, articleLang, function (returnValue) {
 				let articleResponse = returnValue.data;
 				res.send(returnValue)
 			});
@@ -318,7 +318,7 @@ topic.post('/fetcharticle/', function (req, res) {
 		// console.log(returnValue.dataValues);return;
 		if (returnValue === null) {
 			//article does not exist,,create one by fetching
-			fetchABPtopic(articleId, articleLang, function (articleResponse) {
+			fetchniktopic(articleId, articleLang, function (articleResponse) {
 				// console.log(articleResponse);return;
 				if(articleResponse == null){
 					let failure_response = { success: false, description: 'Wrong Language Chosen' }
@@ -326,9 +326,9 @@ topic.post('/fetcharticle/', function (req, res) {
 					res.end();
 					return;
 				}
-				//condition to restrict article type before fetching in ABP MAnch
+				//condition to restrict article type before fetching in Forum
 				if (articleResponse.news_type != 'news') {
-					let failure_response = { success: false, description: 'Article Type not supported for ABP Manch' }
+					let failure_response = { success: false, description: 'Article Type not supported for Forum' }
 					res.json(failure_response);
 					res.end();
 					return;
@@ -363,8 +363,8 @@ topic.post('/fetcharticle/', function (req, res) {
 						else{
 							bot_user_id = user_id;
 						}
-						//create article on manch 
-						storeInManchDB(categoryData.data.id, articleResponse, articleLang, bot_user_id, source, function (topicDetailData) {
+						//create article on forum 
+						storeInforumDB(categoryData.data.id, articleResponse, articleLang, bot_user_id, source, function (topicDetailData) {
 							//create object of article details to push to redis
 							let pushObj = {
 								categoryId: topicDetailData.dataValues.cat_id,
@@ -433,8 +433,8 @@ topic.post('/fetcharticle/', function (req, res) {
 		}
 		else {
 			//article already exists
-			getTopicFullDetails(returnValue.dataValues.tId, langId, function (manchArticleDetail) {
-				res.json(manchArticleDetail)
+			getTopicFullDetails(returnValue.dataValues.tId, langId, function (forumArticleDetail) {
+				res.json(forumArticleDetail)
 			});
 		}
 	});
@@ -628,8 +628,8 @@ function checkExistenceOfArticle(articleId, langId, callback) {
 		})
 }
 
-function fetchABPtopic(articleId, articleLang, callback) {
-	let articleJsonUrl = 'http://appfeedsnew.abplive.com/testfeeds/' + articleLang + '/posts/' + articleId + '/index';
+function fetchniktopic(articleId, articleLang, callback) {
+	let articleJsonUrl = 'http://appfeedsnew.niklive.com/testfeeds/' + articleLang + '/posts/' + articleId + '/index';
 	var JSONcontent = helper.fetchJSONcontent(articleJsonUrl, function (results) {
 		if(results.success){
 			results = results.data
@@ -647,8 +647,8 @@ function fetchABPtopic(articleId, articleLang, callback) {
 	});
 }
 
-//fn to insert new record in topic table ends  (Discuss On manch feature)
-function storeInManchDB(cat_id, content, articleLang, user_id, source = 0, callback) {
+//fn to insert new record in topic table ends  (Discuss On forum feature)
+function storeInforumDB(cat_id, content, articleLang, user_id, source = 0, callback) {
 	// let topic_detail = 0;
 	// console.log(content.tags.toString());return;
 	// console.log('ee')
@@ -1590,7 +1590,7 @@ topic.get('/latestTwoComments/:langId/:articleId', function (req, res) {
 		if (returnValue == null) {
 		}
 		else {
-			let manchId = returnValue.dataValues.tId;
+			let forumId = returnValue.dataValues.tId;
 			let offset = 0;
 			let limit = config.comment.partialLimit;
 			offset = req.body.offset ? req.body.offset : offset;
@@ -1600,13 +1600,13 @@ topic.get('/latestTwoComments/:langId/:articleId', function (req, res) {
 				'url': ''
 			};
 			let order_json = ['id', 'DESC'];
-			let where_json = { topic_id: manchId, id: { $lt: offset }, status: 0, parent_id: 0, is_reported: { [Op.ne]: 2 } };
+			let where_json = { topic_id: forumId, id: { $lt: offset }, status: 0, parent_id: 0, is_reported: { [Op.ne]: 2 } };
 
 			if (offset == 0) {
-				where_json = { topic_id: manchId, status: 0, parent_id: 0, is_reported: { [Op.ne]: 2 } };
+				where_json = { topic_id: forumId, status: 0, parent_id: 0, is_reported: { [Op.ne]: 2 } };
 			}
 			else {
-				where_json = { topic_id: manchId, id: { [Op.lt]: offset }, status: 0, parent_id: 0, is_reported: { [Op.ne]: 2 } };
+				where_json = { topic_id: forumId, id: { [Op.lt]: offset }, status: 0, parent_id: 0, is_reported: { [Op.ne]: 2 } };
 			}
 
 			let includeArr = [
@@ -1635,7 +1635,7 @@ topic.get('/latestTwoComments/:langId/:articleId', function (req, res) {
 					result.success = true;
 					result.comments = comments;
 					let langShort = langId == 3 || langId == 6 ? '' : helper.getLang(langId, 1) + '/';
-					result.url = web_url + langShort + 'topic/' + returnValue.dataValues.tSlug + '-' + manchId + '.html';
+					result.url = web_url + langShort + 'topic/' + returnValue.dataValues.tSlug + '-' + forumId + '.html';
 					result.url = result.url.replace('--', '-');
 					res.status(200).json(result);
 				});
@@ -1921,7 +1921,7 @@ topic.post('/migrateToRedis', (req, res) => {
 
 	let order_json = ['id', 'DESC'];
 	let categoryDetail = [];
-	client.get('manchCategoriesData', (err, allCat) => {
+	client.get('forumCategoriesData', (err, allCat) => {
 		allCat = JSON.parse(allCat)
 		WModels.article.findAll({
 			where: where_json,
@@ -2009,7 +2009,7 @@ topic.post('/migrateToES', (req, res) => {
 
 	let order_json = ['id', 'DESC'];
 	let categoryDetail = [];
-	client.get('manchCategoriesData', (err, allCat) => {
+	client.get('forumCategoriesData', (err, allCat) => {
 		allCat = JSON.parse(allCat)
 		WModels.article.findAll({
 			offset: offset,

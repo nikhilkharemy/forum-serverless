@@ -111,7 +111,7 @@ export class CreateTopicComponent implements OnInit {
 
   constructor(private apiservice: ApisService, private router: Router, private _auth: AuthorizationService) {
     this.channels = this.apiservice.channels;
-    this.channels.push({ id: 6, name: 'Abpganga' });
+    this.channels.push({ id: 6, name: 'nikganga' });
     this._auth.getAuthenticatedUser().subscribe((result) => {
       this.userId = result['user_id'];
       let token = localStorage.getItem('accessToken');

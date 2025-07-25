@@ -30,7 +30,7 @@ const appRoutes: Routes = [
         component: RegisterComponent,
     },
     {
-        path: 'manch-register-test',
+        path: 'forum-register-test',
         component: RegisterComponent
     },
     {

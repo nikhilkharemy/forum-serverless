@@ -46,17 +46,17 @@ app.use((req, res, next) => {
 });
 
 // console.log(helper.decrypt('9d193be9bbe5c1580a02668c049e3810'))
-// console.log(helper.encrypt('http://manchstatic.abplive.in/profile-images/Sumit-Awasthi.png'))
-// console.log(helper.encrypt('romanaik@abpnews.in'))
-// console.log(helper.encrypt('anuraagm@abpnews.in'))
-// console.log(helper.encrypt('kumkumb@abpnews.in'))
-// console.log(helper.encrypt('akhilesha@abpnews.in'))
-// console.log(helper.encrypt('asthak@abpnews.in'))
-// console.log(helper.encrypt('adarshj@abpnews.in'))
-// console.log(helper.encrypt('shobhnay@abpnews.in'))
-// console.log(helper.encrypt('pratimam@abpnews.in'))
-// console.log(helper.encrypt('shreyab@abpnews.in'))
-// console.log(helper.encrypt('shikhat@abpnews.in'))
+// console.log(helper.encrypt('http://forumstatic.niklive.in/profile-images/Sumit-Awasthi.png'))
+// console.log(helper.encrypt('romanaik@niknews.in'))
+// console.log(helper.encrypt('anuraagm@niknews.in'))
+// console.log(helper.encrypt('kumkumb@niknews.in'))
+// console.log(helper.encrypt('akhilesha@niknews.in'))
+// console.log(helper.encrypt('asthak@niknews.in'))
+// console.log(helper.encrypt('adarshj@niknews.in'))
+// console.log(helper.encrypt('shobhnay@niknews.in'))
+// console.log(helper.encrypt('pratimam@niknews.in'))
+// console.log(helper.encrypt('shreyab@niknews.in'))
+// console.log(helper.encrypt('shikhat@niknews.in'))
 
 app.use('/term', term);
 app.use('/term-detail', term_detail);

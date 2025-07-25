@@ -19,7 +19,7 @@
     "ApiLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/abp-manch-ui-production-api"
+        "LogGroupName": "/aws/lambda/forum-ui-production-api"
       }
     },
     "IamRoleLambdaExecution": {
@@ -48,7 +48,7 @@
                 "-",
                 [
                   "production",
-                  "abp-manch-ui",
+                  "forum-ui",
                   "lambda"
                 ]
               ]
@@ -63,7 +63,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/abp-manch-ui-production-api:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/forum-ui-production-api:*"
                     }
                   ]
                 },
@@ -74,7 +74,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/abp-manch-ui-production-api:*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/forum-ui-production-api:*:*"
                     }
                   ]
                 }
@@ -87,7 +87,7 @@
           "Fn::Join": [
             "-",
             [
-              "abp-manch-ui",
+              "forum-ui",
               "production",
               "ap-south-1",
               "lambdaRole"
@@ -103,9 +103,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/abp-manch-ui/production/1570184509630-2019-10-04T10:21:49.630Z/abp-manch-ui.zip"
+          "S3Key": "serverless/forum-ui/production/1570184509630-2019-10-04T10:21:49.630Z/forum-ui.zip"
         },
-        "FunctionName": "abp-manch-ui-production-api",
+        "FunctionName": "forum-ui-production-api",
         "Handler": "lambda.universal",
         "MemorySize": 192,
         "Role": {
@@ -135,7 +135,7 @@
     "ApiGatewayRestApi": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
-        "Name": "production-abp-manch-ui",
+        "Name": "production-forum-ui",
         "EndpointConfiguration": {
           "Types": [
             "EDGE"

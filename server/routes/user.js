@@ -22,7 +22,7 @@ var docClient = new AWS.DynamoDB.DocumentClient({ convertEmptyValues: true }),
     // bodyParser = require('body-parser'),
     multer = require('multer'),
     multerS3 = require('multer-s3');
-const table = "abpmanch_users";
+const table = "forum_users";
 AWS.config.update({
     // secretAccessKey: '',
     // accessKeyId: '',
@@ -32,7 +32,7 @@ AWS.config.update({
 var upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'abp-manch/profile-images',
+        bucket: 'forum/profile-images',
         key: function (req, file, cb) {
             // console.log(req.body);
             cb(null, req.body.name); //use Date.now() for unique file keys
@@ -56,7 +56,7 @@ var upload_app = multer({
 }).single('image');
 
 
-const profileImgBucket = "https://manchstatic.abplive.in/profile-images/";
+const profileImgBucket = "https://forumstatic.niklive.in/profile-images/";
 
 // var storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
@@ -138,7 +138,7 @@ user.get('/anchor/list/:langId', function (req, res) {
             result[index].dataValues.dispName = result[index].dataValues.dispName != '' ? helper.decrypt(result[index].dataValues.dispName) : ''
             result[index].dataValues.dispPic = result[index].dataValues.dispPic != '' ? helper.decrypt(result[index].dataValues.dispPic) : ''
         })
-        userList.push({ dispName: 'All Anchors', dispPic: 'https://static.abpmanch.com/images/all-anchors.png', uId: '0', userId: "-1" })
+        userList.push({ dispName: 'All Anchors', dispPic: 'https://static.forum.com/images/all-anchors.png', uId: '0', userId: "-1" })
         userList = [...userList, ...result]
         res.json({ success: true, data: userList });
         // res.send(result)

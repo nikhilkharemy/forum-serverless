@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"abpmanchui5db387ca": {
+		"forumui5db387ca": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}

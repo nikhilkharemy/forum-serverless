@@ -115,20 +115,20 @@ topic.post('/fetcharticle/', function(req, res){
 	checkExistenceOfArticle(articleId,user_id, function(returnValue) {
 		if(returnValue === null){
 			//article does not exist,,create one by fetching
-			fetchABPtopic(articleId,articleLang,function(returnValue) {
+			fetchniktopic(articleId,articleLang,function(returnValue) {
 				let articleResponse = returnValue;
-				//condition to restrict article type before fetching in ABP MAnch
+				//condition to restrict article type before fetching in Forum
 				if(articleResponse.news_type != 'news'){
-					let failure_response = {success:false,description:'Article Type not supported for ABP Manch'}
+					let failure_response = {success:false,description:'Article Type not supported for Forum'}
 					res.json(failure_response);
 					return;
 				}
 				getCategoryId(returnValue.primary_category,returnValue.site_id,function(returnValue){
 						// res.json(articleResponse);
-					storeInManchDB(returnValue.data.id,articleResponse, user_id, function(returnValue){
+					storeInforumDB(returnValue.data.id,articleResponse, user_id, function(returnValue){
 						// res.json(returnValue);
-						checkExistenceOfArticle(articleId,user_id,function(manchArticleDetail){
-							res.json(manchArticleDetail);
+						checkExistenceOfArticle(articleId,user_id,function(forumArticleDetail){
+							res.json(forumArticleDetail);
 						});
 					});
 				});	
@@ -239,8 +239,8 @@ function checkExistenceOfArticle(articleId, user_id, callback){
 		})
 }
 
-function fetchABPtopic(articleId,articleLang,callback){
-	let articleJsonUrl = 'http://appfeedsnew.abplive.in/testfeeds/'+articleLang+'/posts/'+articleId+'/index';
+function fetchniktopic(articleId,articleLang,callback){
+	let articleJsonUrl = 'http://appfeedsnew.niklive.in/testfeeds/'+articleLang+'/posts/'+articleId+'/index';
 	var JSONcontent = helper.fetchJSONcontent(articleJsonUrl,function(results){
 		
 		
@@ -254,8 +254,8 @@ function fetchABPtopic(articleId,articleLang,callback){
 	});
 }
 
-//fn to insert new record in topic table ends  (Discuss On manch feature)
-function storeInManchDB(cat_id,content, user_id, callback){
+//fn to insert new record in topic table ends  (Discuss On forum feature)
+function storeInforumDB(cat_id,content, user_id, callback){
 	let topic_detail = 0;
 	//condition to save single record if its an english article
 	if(content.site_id == 1){

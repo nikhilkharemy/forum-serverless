@@ -6,7 +6,7 @@ FOR EVERYONE
 
 
 
-##1. ABP MANCH MILESTONE PLANNING##
+##1. Forum MILESTONE PLANNING##
 
 **Start Date:** January 08, 2019
 
@@ -15,7 +15,7 @@ FOR EVERYONE
 - 1.2 DynamoDB Designing
 - 1.3 Lambda Functions Plan
 - 1.4 API Gateway Configuration
-- 1.5 Manch PoC
+- 1.5 forum PoC
 - 1.6 Technical Documentation 
 
 **2 Manage Users**
@@ -25,7 +25,7 @@ FOR EVERYONE
 - 2.5 Roles and Groups 
 
 
-**3 Manage Manch**
+**3 Manage forum**
 - 3.1 Manage Topics
 - 3.2 Manage Categories
 - 3.3 Manage Posts
@@ -46,53 +46,53 @@ FOR EVERYONE
 
 **End Date:** February 22, 2019 |
 
-**2. ABP MANCH ARCHITECTURE**
+**2. Forum ARCHITECTURE**
 
 [**2.1 Sign-up and Sign-in Internal workflow with Cognito User Pool**](https://docs.google.com/document/d/1RYJ2erPaNbq09zB7qBCft3A2yUjS905GIxnU76xuE2M/edit)
  
-[**2.2 ABP Manch Baseline Architecture and Workflow**](https://docs.google.com/document/d/1RYJ2erPaNbq09zB7qBCft3A2yUjS905GIxnU76xuE2M/edit)
+[**2.2 Forum Baseline Architecture and Workflow**](https://docs.google.com/document/d/1RYJ2erPaNbq09zB7qBCft3A2yUjS905GIxnU76xuE2M/edit)
 
-[**3. ABP MANCH SCREENS**](https://docs.google.com/document/d/1RYJ2erPaNbq09zB7qBCft3A2yUjS905GIxnU76xuE2M/edit)
+[**3. Forum SCREENS**](https://docs.google.com/document/d/1RYJ2erPaNbq09zB7qBCft3A2yUjS905GIxnU76xuE2M/edit)
 
-**4. ABP MANCH AWS RESOURCES**
+**4. Forum AWS RESOURCES**
 
 **4.1 DynamoDB**
 
 Region: Asia Pacific (Mumbai)
 
-Database: abp-manch-db
+Database: forum-db
 
 Primary Key: id
 
 **4.2 Amazon Cognito**
 
-User Pool: abp-manch-userpool
+User Pool: forum-userpool
 
-App Client: abp-manch-appclient
+App Client: forum-appclient
 
 App Client id: d7c5gf84c7qjopcn7j549ce4q
 
 **4.3 Amazon S3**
 
-Bucket Name: abp-manch
+Bucket Name: forum
 
 **4.4 AWS Lambda**
 
-Function Name: abp-manch-\&lt;\&lt;HTTP METHOD\&gt;\&gt;-\&lt;\&lt;NAME\&gt;\&gt;
+Function Name: forum-\&lt;\&lt;HTTP METHOD\&gt;\&gt;-\&lt;\&lt;NAME\&gt;\&gt;
 
 Role (existing): lambda\_basic\_execution
 
 **4.5 API Gateway**
 
-Name: abp-manch-api
+Name: forum-api
 
-Resource Name: abpmanch-resources
+Resource Name: forum-resources
 
 Enable API Gateway CORS: true
 
-Authorizer: abp-manch-authorizer
+Authorizer: forum-authorizer
 
-GET - Method Request Authorizer: abp-manch-authorizer
+GET - Method Request Authorizer: forum-authorizer
 
 Deploy API Stage:
 
@@ -112,7 +112,7 @@ API URL: [https://xxxxxxxxxx.execute-api.ap-south-1.amazonaws.com/prod](https://
 
 
 
-**0.1 15/01/2019 | Vinod Kumar Tiwari | Phase 1 for Manch Technical and Architectural Overview**
+**0.1 15/01/2019 | Vinod Kumar Tiwari | Phase 1 for forum Technical and Architectural Overview**
 
 
 

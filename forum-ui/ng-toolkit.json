@@ -3,8 +3,8 @@
     "provider": "aws",
     "skipInstall": false,
     "directory": ".",
-    "project": "abp-manch-ui",
-    "clientProject": "abp-manch-ui",
+    "project": "forum-ui",
+    "clientProject": "forum-ui",
     "serverless": {
       "aws": {},
       "gcloud": {}
