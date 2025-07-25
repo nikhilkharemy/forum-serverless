@@ -6,9 +6,9 @@ FOR EVERYONE
 
 
 
-##1. ABP MANCH MILESTONE PLANNING##
+##1. Forum MILESTONE PLANNING##
 
-**Start Date:** January 08, 2019
+**Start Date:** March 01, 2017
 
 **1 Manage AWS Infrastructure**
 - 1.1 Manage User Pools
@@ -44,55 +44,47 @@ FOR EVERYONE
 - 5.2 Lambda Test &amp; Optimisation
 - 5.3 API Gateway Deployment Stages 
 
-**End Date:** February 22, 2019 |
+**End Date:** March 22, 2017 |
 
-**2. ABP MANCH ARCHITECTURE**
 
-[**2.1 Sign-up and Sign-in Internal workflow with Cognito User Pool**](https://docs.google.com/document/d/1RYJ2erPaNbq09zB7qBCft3A2yUjS905GIxnU76xuE2M/edit)
- 
-[**2.2 ABP Manch Baseline Architecture and Workflow**](https://docs.google.com/document/d/1RYJ2erPaNbq09zB7qBCft3A2yUjS905GIxnU76xuE2M/edit)
-
-[**3. ABP MANCH SCREENS**](https://docs.google.com/document/d/1RYJ2erPaNbq09zB7qBCft3A2yUjS905GIxnU76xuE2M/edit)
-
-**4. ABP MANCH AWS RESOURCES**
 
 **4.1 DynamoDB**
 
 Region: Asia Pacific (Mumbai)
 
-Database: abp-manch-db
+Database: forum-db
 
 Primary Key: id
 
 **4.2 Amazon Cognito**
 
-User Pool: abp-manch-userpool
+User Pool: forum-userpool
 
-App Client: abp-manch-appclient
+App Client: forum-appclient
 
 App Client id: d7c5gf84c7qjopcn7j549ce4q
 
 **4.3 Amazon S3**
 
-Bucket Name: abp-manch
+Bucket Name: forum
 
 **4.4 AWS Lambda**
 
-Function Name: abp-manch-\&lt;\&lt;HTTP METHOD\&gt;\&gt;-\&lt;\&lt;NAME\&gt;\&gt;
+Function Name: forum-\&lt;\&lt;HTTP METHOD\&gt;\&gt;-\&lt;\&lt;NAME\&gt;\&gt;
 
 Role (existing): lambda\_basic\_execution
 
 **4.5 API Gateway**
 
-Name: abp-manch-api
+Name: forum-api
 
-Resource Name: abpmanch-resources
+Resource Name: forum-resources
 
 Enable API Gateway CORS: true
 
-Authorizer: abp-manch-authorizer
+Authorizer: forum-authorizer
 
-GET - Method Request Authorizer: abp-manch-authorizer
+GET - Method Request Authorizer: forum-authorizer
 
 Deploy API Stage:
 
